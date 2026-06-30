@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Category {
+  id     BigInt  @id @default(autoincrement())
+  name   String  @db.VarChar
+  icon   String  @db.VarChar
+  places Place[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Itinerary {
+  id        BigInt            @id @default(autoincrement())
+  title     String            @db.VarChar
+  startDate String            @db.VarChar
+  days      BigInt?
+  budget    BigInt?
+  userId    BigInt
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  details   ItineraryDetail[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model ItineraryDetail {
+  id          BigInt    @id @default(autoincrement())
+  arrivalTime DateTime  @db.Timetz(6)
+  leaveTime   DateTime  @db.Timetz(6)
+  order       String    @db.VarChar
+  placeId     BigInt
+  itineraryId BigInt
+  place       Place     @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  itinerary   Itinerary @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Place {
+  id               BigInt            @id @default(autoincrement())
+  name             String            @db.VarChar
+  description      String            @db.VarChar
+  latitude         String            @db.VarChar
+  longitude        String            @db.VarChar
+  address          String            @db.VarChar
+  price            String            @db.VarChar
+  openTime         DateTime          @db.Timetz(6)
+  closeTime        DateTime          @db.Timetz(6)
+  categoryId       BigInt
+  image            String            @db.VarChar
+  category         Category          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  reviews          Review[]
+  itineraryDetails ItineraryDetail[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Review {
+  id      BigInt @id @default(autoincrement())
+  rating  String @db.VarChar
+  comment String @db.VarChar
+  userId  BigInt
+  placeId BigInt
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  place   Place  @relation(fields: [placeId], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model User {
+  id          BigInt      @id @default(autoincrement())
+  fullName    String      @db.VarChar
+  email       String      @unique @db.VarChar
+  password    String      @db.VarChar
+  avatar      String?     @db.VarChar
+  role        Boolean     @default(true)
+  createdAt   DateTime    @db.Date
+  reviews     Review[]
+  itineraries Itinerary[]
+}
