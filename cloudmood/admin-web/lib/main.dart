@@ -21,7 +21,7 @@ class CloudMoodApp extends StatelessWidget {
           primary: const Color(0xFF667eea),
         ),
         useMaterial3: true,
-        fontFamily: 'Roboto',
+        fontFamily: 'SDK_SC_Web',
       ),
       home: const AuthChecker(),
       routes: {
