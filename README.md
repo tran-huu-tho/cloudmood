@@ -2,15 +2,14 @@
 
 <div align="center">
 
-![CloudMood Logo](cloudmood/admin-dashboard/public/logo.png)
-
 **Nền tảng quản lý du lịch thông minh với công nghệ hiện đại**
 
+[![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev/)
 [![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)](https://nestjs.com/)
-[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev/)
 
 </div>
 
@@ -38,17 +37,18 @@
 ### ✨ Điểm Nổi Bật
 
 - 🔐 **Bảo mật cao** với JWT Authentication
-- 🎨 **Giao diện đẹp mắt** với Tailwind CSS & Modern UI/UX
-- ⚡ **Hiệu suất cao** với Next.js 16 & NestJS 11
+- 🎨 **Giao diện đẹp mắt** với Flutter Material Design 3
+- ⚡ **Hiệu suất cao** với Flutter Web & NestJS 11
 - 🗄️ **Database mạnh mẽ** với PostgreSQL & Prisma ORM
 - ☁️ **Cloud Storage** với Cloudinary
+- 📱 **Cross-platform** - Web hiện tại, Mobile sắp tới
 - 🤖 **AI Integration** sẵn sàng mở rộng
 
 ---
 
 ## 🚀 Tính Năng
 
-### 🛡️ Admin Dashboard
+### 🛡️ Admin Dashboard (Flutter Web)
 - ✅ Quản lý người dùng (Users)
 - ✅ Quản lý địa điểm du lịch (Places)
 - ✅ Quản lý danh mục (Categories)
@@ -56,6 +56,7 @@
 - ✅ Quản lý lịch trình (Itineraries)
 - ✅ Phân quyền Admin/User
 - ✅ Dashboard thống kê
+- 📱 **Sẵn sàng mở rộng sang Mobile App**
 
 ### 🔒 Authentication & Security
 - JWT Token-based authentication
@@ -84,17 +85,18 @@
 ┌─────────────────────────────────────────────────────────────┐
 │                     CLIENT LAYER                            │
 │  ┌─────────────────────────────────────────────────────┐   │
-│  │   Next.js 16 Admin Dashboard (Port 3001)            │   │
-│  │   - TypeScript                                       │   │
-│  │   - Tailwind CSS v4                                  │   │
-│  │   - Lucide Icons                                     │   │
+│  │   Flutter Web Admin (Port 3000)                     │   │
+│  │   - Dart                                             │   │
+│  │   - Material Design 3                                │   │
+│  │   - Shared Preferences (LocalStorage)                │   │
+│  │   - HTTP Client                                      │   │
 │  └─────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────┘
                             ↓ HTTP/HTTPS
 ┌─────────────────────────────────────────────────────────────┐
 │                     API LAYER                               │
 │  ┌─────────────────────────────────────────────────────┐   │
-│  │   NestJS Backend (Port 3000)                        │   │
+│  │   NestJS Backend (Port 3001)                        │   │
 │  │   ┌──────────┬──────────┬──────────┬──────────┐    │   │
 │  │   │   Auth   │  Users   │  Places  │Categories│    │   │
 │  │   ├──────────┼──────────┼──────────┼──────────┤    │   │
@@ -142,14 +144,15 @@
 | **Class Validator** | 0.15.1 | Data Validation |
 | **Multer** | 2.2.0 | File Upload |
 
-### Frontend (Next.js)
+### Frontend (Flutter Web)
 | Technology | Version | Purpose |
 |------------|---------|---------|
-| **Next.js** | 16.2.9 | React Framework |
-| **React** | 19.x | UI Library |
-| **TypeScript** | 5.x | Type Safety |
-| **Tailwind CSS** | 4.x | Styling |
-| **Lucide React** | Latest | Icons |
+| **Flutter** | 3.24.5 | UI Framework (Web + Mobile) |
+| **Dart** | 3.5.4 | Programming Language |
+| **Material Design 3** | - | UI Components |
+| **HTTP** | 1.6.0 | API Client |
+| **Shared Preferences** | 2.5.3 | LocalStorage |
+| **Go Router** | 14.8.1 | Routing (Future) |
 
 ### Database
 - **PostgreSQL** via **Supabase**
@@ -160,7 +163,9 @@
 ## 📦 Cài Đặt
 
 ### Prerequisites
-- Node.js >= 18.x
+- **Node.js** >= 18.x
+- **Flutter SDK** >= 3.24.0
+- **PostgreSQL** (hoặc Supabase account)
 - npm >= 9.x
 - PostgreSQL database (Supabase recommended)
 
@@ -194,26 +199,25 @@ npx prisma db seed
 npm run start:dev
 ```
 
-Backend sẽ chạy tại: `http://localhost:3000`
+Backend sẽ chạy tại: `http://localhost:3001`
 
-### 3. Frontend Setup
+### 3. Frontend Setup (Flutter Web)
 ```bash
-cd cloudmood/admin-dashboard
+cd cloudmood/admin-web
 
-# Install dependencies
-npm install
+# Get Flutter dependencies
+flutter pub get
 
-# Setup environment variables (if needed)
-# Create .env.local for API URL
-
-# Start development server
-npm run dev
+# Run Flutter Web on port 3000
+flutter run -d chrome --web-port 3000
 ```
 
-Frontend sẽ chạy tại: `http://localhost:3001`
+Frontend sẽ chạy tại: `http://localhost:3000`
+
+**Lưu ý:** Nếu chưa cài Flutter SDK, tải tại [flutter.dev](https://flutter.dev/docs/get-started/install)
 
 ### 4. Access Admin Dashboard
-- URL: `http://localhost:3001`
+- URL: `http://localhost:3000`
 - Email: `admin@cloudmood.com`
 - Password: `admin123`
 
@@ -223,26 +227,25 @@ Frontend sẽ chạy tại: `http://localhost:3001`
 
 ```
 CloudMood/
-├── cloudmood/                          # Backend NestJS
-│   ├── prisma/
-│   │   ├── schema.prisma              # Database schema
-│   │   └── seed.ts                    # Seed data
-│   ├── src/
+├── cloudmood/                          # Root Project
+│   │
+│   ├── src/                           # Backend NestJS
 │   │   ├── main.ts                    # Entry point
 │   │   ├── app.module.ts              # Root module
 │   │   ├── app.controller.ts          # Health check
-│   │   ├── app.service.ts             # App service
 │   │   │
 │   │   ├── auth/                      # Authentication module
 │   │   │   ├── auth.controller.ts     # Login endpoint
-│   │   │   ├── auth.service.ts        # Auth logic
-│   │   │   └── auth.module.ts
+│   │   │   ├── auth.service.ts        # Auth logic (JWT, bcrypt)
+│   │   │   ├── auth.module.ts
+│   │   │   └── dto/
+│   │   │       └── login.dto.ts       # Login validation
 │   │   │
 │   │   ├── users/                     # Users module
 │   │   │   ├── users.controller.ts    # User CRUD endpoints
 │   │   │   ├── users.service.ts       # User business logic
 │   │   │   ├── users.module.ts
-│   │   │   ├── dto/                   # Data Transfer Objects
+│   │   │   ├── dto/                   # DTOs
 │   │   │   └── entities/              # User entity
 │   │   │
 │   │   ├── categories/                # Categories module
@@ -250,7 +253,7 @@ CloudMood/
 │   │   ├── reviews/                   # Reviews module
 │   │   ├── itineraries/               # Itineraries module
 │   │   │
-│   │   ├── prisma/                    # Prisma module (global)
+│   │   ├── prisma/                    # Prisma service (global)
 │   │   │   ├── prisma.service.ts
 │   │   │   └── prisma.module.ts
 │   │   │
@@ -259,23 +262,35 @@ CloudMood/
 │   │   ├── weather/                   # Weather module (future)
 │   │   └── rules/                     # Business rules (future)
 │   │
-│   ├── .env                           # Environment variables
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── cloudmood/admin-dashboard/          # Frontend Next.js
-│   ├── app/
-│   │   ├── page.tsx                   # Login/Welcome page
-│   │   ├── layout.tsx                 # Root layout
-│   │   ├── globals.css                # Global styles
+│   ├── prisma/
+│   │   ├── schema.prisma              # Database schema
+│   │   └── seed.ts                    # Seed data (admin + users)
+│   │
+│   ├── admin-web/                     # Frontend Flutter Web
+│   │   ├── lib/
+│   │   │   ├── main.dart              # Entry point & Auth checker
+│   │   │   │
+│   │   │   ├── screens/
+│   │   │   │   ├── welcome_screen.dart    # Login page
+│   │   │   │   └── dashboard_screen.dart  # Admin dashboard
+│   │   │   │
+│   │   │   └── services/
+│   │   │       ├── api_service.dart       # HTTP client
+│   │   │       └── auth_service.dart      # LocalStorage (tokens)
 │   │   │
-│   │   └── dashboard/
-│   │       └── page.tsx               # Admin dashboard
+│   │   ├── web/
+│   │   │   └── index.html             # Web entry
+│   │   │
+│   │   ├── pubspec.yaml               # Flutter dependencies
+│   │   └── README.md
 │   │
-│   ├── public/
-│   │   └── logo.png                   # CloudMood logo
-│   │
-│   ├── package.json
+│   ├── .env                           # Environment variables
+│   ├── package.json                   # Backend dependencies
+│   ├── tsconfig.json
+│   ├── nest-cli.json
+│   └── README.md
+│
+└── README.md                          # This file
 │   ├── tailwind.config.ts
 │   └── tsconfig.json
 │
